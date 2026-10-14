@@ -5182,7 +5182,7 @@ figcaption, figure{margin: 0; padding: 0;}
 }
 .fac-crumb a:hover { color: var(--school-orange); }
 .fac-crumb i { color: var(--school-orange); font-size: 10px; }
-.fac-crumb .current { color: var(--school-blue); }
+.fac-crumb .current, .breadcrumb_last { color: var(--school-blue); }
 .fac-hero-title {
     color: var(--school-blue);
     font-family: "Playfair Display", serif;
@@ -5452,7 +5452,7 @@ figcaption, figure{margin: 0; padding: 0;}
 }
 .calendar-crumb a:hover { color: var(--school-orange); }
 .calendar-crumb i { color: var(--school-orange); font-size: 10px; }
-.calendar-crumb .current { color: var(--school-blue); }
+.calendar-crumb .current, .breadcrumb_last { color: var(--school-blue); }
 
 .calendar-eyebrow {
     display: inline-flex;
@@ -10065,7 +10065,7 @@ figcaption, figure{margin: 0; padding: 0;}
 }
 .cca-crumb a:hover { color: var(--school-orange); }
 .cca-crumb i { color: var(--school-orange); font-size: 10px; }
-.cca-crumb .current { color: var(--school-blue); }
+.cca-crumb .current, .breadcrumb_last { color: var(--school-blue); }
 
 .cca-hero-title {
     color: var(--school-blue);
@@ -11784,7 +11784,7 @@ figcaption, figure{margin: 0; padding: 0;}
     color: var(--school-orange);
     font-size: 10px;
 }
-.page-banner-crumb .current { color: var(--school-blue); }
+.page-banner-crumb .current, .breadcrumb_last { color: var(--school-blue); }
 
 .page-banner-inner {
     display: grid;
@@ -12837,7 +12837,7 @@ figcaption, figure{margin: 0; padding: 0;}
 }
 .exam-crumb a:hover { color: var(--school-orange); }
 .exam-crumb i { color: var(--school-orange); font-size: 10px; }
-.exam-crumb .current { color: var(--school-blue); }
+.exam-crumb .current, .breadcrumb_last { color: var(--school-blue); }
 
 .exam-eyebrow {
     display: inline-flex;
@@ -13598,7 +13598,7 @@ figcaption, figure{margin: 0; padding: 0;}
 }
 .fac-crumb a:hover { color: var(--school-orange); }
 .fac-crumb i { color: var(--school-orange); font-size: 10px; }
-.fac-crumb .current { color: var(--school-blue); }
+.fac-crumb .current, .breadcrumb_last { color: var(--school-blue); }
 
 .fac-hero-title {
     color: var(--school-blue);
@@ -18288,7 +18288,7 @@ figcaption, figure{margin: 0; padding: 0;}
     color: var(--school-orange);
     font-size: 10px;
 }
-.page-banner-crumb .current { color: var(--school-blue); }
+.page-banner-crumb .current, .breadcrumb_last { color: var(--school-blue); }
 
 .page-banner-inner {
     display: grid;
@@ -21118,7 +21118,7 @@ figcaption, figure{margin: 0; padding: 0;}
 }
 .tm-crumb a:hover { color: var(--school-orange); }
 .tm-crumb i { color: var(--school-orange); font-size: 10px; }
-.tm-crumb .current { color: var(--school-blue); }
+.tm-crumb .current, .breadcrumb_last { color: var(--school-blue); }
 .tm-hero-title {
     color: var(--school-blue);
     font-family: "Playfair Display", serif;
@@ -22439,6 +22439,7 @@ figcaption, figure{margin: 0; padding: 0;}
         grid-row: 2;
         display: flex;
         align-items: center;
+        justify-content: flex-start;
         gap: 6px;
         padding: 10px 0 0;
         border: none;
@@ -22863,6 +22864,10 @@ figcaption, figure{margin: 0; padding: 0;}
     width: 80px;
 }
 
+.committee-table {
+    text-transform: uppercase;
+}
+
 .mpd-sub-indent {
     padding-left: 2.5rem !important;
     color: #475569;
@@ -23046,5 +23051,13 @@ figcaption, figure{margin: 0; padding: 0;}
     }
 }
 
+
+
+/* Active link inside the About Us submenu */
+.school-submenu .current-menu-item > a,
+.school-submenu .current_page_item > a {
+    color: #082c70;
+    font-weight: 700;
+}
 
 

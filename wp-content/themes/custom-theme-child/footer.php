@@ -1,3 +1,9 @@
+
+<?php
+    $is_about_page = is_page() &&
+    has_term('about-us', 'category', get_queried_object_id());
+?>
+
 <!-- =========================
      SCHOOL FOOTER
 ========================= -->
@@ -67,19 +73,19 @@
 
                     <div class="col-6">
 
-                        <a href="index.html">Home</a>
-                        <a href="overview.html">About Us</a>
-                        <a href="curriculam.html">Academics</a>
-                        <a href="admission-overview.html">Admissions</a>
+                        <a href="<?php echo home_url('/'); ?>">Home</a>
+                        <a href="<?php echo home_url('/overview'); ?>">About Us</a>
+                        <a href="<?php echo home_url('/curriculum'); ?>">Academics</a>
+                        <a href="<?php echo home_url('/admission-overview'); ?>">Admissions</a>
 
                     </div>
 
                     <div class="col-6">
 
-                        <a href="facilities.html">Facilities</a>
-                        <a href="gallery.html">Gallery</a>
-                        <a href="news-and-events.html">News & Events</a>
-                        <a href="contact-us.html">Contact Us</a>
+                        <a href="<?php echo home_url('/facilities'); ?>">Facilities</a>
+                        <a href="<?php echo home_url('/gallery'); ?>">Gallery</a>
+                        <a href="<?php echo home_url('/news-and-events'); ?>">News & Events</a>
+                        <a href="<?php echo home_url('/contact-us'); ?>">Contact Us</a>
 
                     </div>
 
@@ -234,7 +240,7 @@
 
                     <a
                         href="<?php echo esc_url(home_url('/')); ?>"
-                        class="school-menu-link school-menu-active"
+                        class="school-menu-link  <?php echo is_front_page() ? 'school-menu-active' : ''; ?>"
                         
                     >
                         Home
@@ -252,7 +258,7 @@
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#schoolAboutMenu"
-                        aria-expanded="false"
+                        aria-expanded="<?php echo $is_about_page ? 'true' : 'false'; ?>"
                         aria-controls="schoolAboutMenu"
                     >
                         <span>About Us</span>
@@ -261,7 +267,7 @@
 
 
                     <div
-                        class="collapse"
+                        class="collapse <?php echo $is_about_page ? 'show' : ''; ?>"
                         id="schoolAboutMenu"
                     >
 
@@ -315,7 +321,7 @@
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#schoolAcademicsMenu"
-                        aria-expanded="false"
+                        aria-expanded="<?php echo is_page() && has_term('academics', 'category', get_queried_object_id()) ? 'true' : 'false'; ?>"
                         aria-controls="schoolAcademicsMenu"
                     >
                         <span>Academics</span>
@@ -324,7 +330,7 @@
 
 
                     <div
-                        class="collapse"
+                        class="collapse <?php echo is_page() && has_term('academics', 'category', get_queried_object_id()) ? 'show' : ''; ?>"
                         id="schoolAcademicsMenu"
                     >
 
@@ -379,7 +385,7 @@
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#schoolAdmissionsMenu"
-                        aria-expanded="false"
+                        aria-expanded="<?php echo is_page() && has_term('admissions', 'category', get_queried_object_id()) ? 'true' : 'false'; ?>"
                         aria-controls="schoolAdmissionsMenu"
                     >
                         <span>Admissions</span>
@@ -388,7 +394,7 @@
 
 
                     <div
-                        class="collapse"
+                        class="collapse <?php echo is_page() && has_term('admissions', 'category', get_queried_object_id()) ? 'show' : ''; ?>"
                         id="schoolAdmissionsMenu"
                     >
 
@@ -430,8 +436,8 @@
                 <li class="school-menu-item">
 
                     <a
-                        href="facilities.html"
-                        class="school-menu-link"
+                        href="<?php echo home_url('/facilities'); ?>"
+                        class="school-menu-link <?php echo is_page() && get_queried_object_id() == get_page_by_path('facilities')->ID ? 'school-menu-active' : ''; ?>"
                     >
                         Facilities
                     </a>
@@ -448,7 +454,7 @@
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#schoolFacultyMenu"
-                        aria-expanded="false"
+                        aria-expanded="<?php echo is_page() && has_term('faculty-staff', 'category', get_queried_object_id()) ? 'true' : 'false'; ?>"
                         aria-controls="schoolFacultyMenu"
                     >
                         <span>Faculty &amp; Staff</span>
@@ -457,7 +463,7 @@
 
 
                     <div
-                        class="collapse"
+                        class="collapse <?php echo is_page() && has_term('faculty-staff', 'category', get_queried_object_id()) ? 'show' : ''; ?>"
                         id="schoolFacultyMenu"
                     >
 
@@ -499,7 +505,7 @@
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#schoolStudentsMenu"
-                        aria-expanded="false"
+                        aria-expanded="<?php echo is_page() && has_term('students-corner', 'category', get_queried_object_id()) ? 'true' : 'false'; ?>"
                         aria-controls="schoolStudentsMenu"
                     >
                         <span>Students Corner</span>
@@ -508,7 +514,7 @@
 
 
                     <div
-                        class="collapse"
+                        class="collapse <?php echo is_page() && has_term('students-corner', 'category', get_queried_object_id()) ? 'show' : ''; ?>"
                         id="schoolStudentsMenu"
                     >
 
@@ -539,9 +545,9 @@
 
                 <!-- GALLERY -->
 
-                <li class="school-menu-item">
+                <li class="school-menu-item <?php echo is_page() && get_queried_object_id() == get_page_by_path('facilities')->ID ? 'school-menu-active' : ''; ?>">
 
-                    <a href="gallery.html" class="school-menu-link">
+                    <a href="<?php echo home_url('/gallery'); ?>" class="school-menu-link">
                         Gallery
                     </a>
 
@@ -552,7 +558,7 @@
 
                 <li class="school-menu-item">
 
-                    <a href="news-and-events.html" class="school-menu-link">
+                    <a href="<?php echo home_url('/news-and-events'); ?>" class="school-menu-link">
                         News &amp; Events
                     </a>
 
@@ -563,7 +569,7 @@
 
                 <li class="school-menu-item">
 
-                    <a href="mandatory-disclosure.html" class="school-menu-link">
+                    <a href="<?php echo home_url('/mandatory-disclosure'); ?>" class="school-menu-link">
                         Mandatory Disclosure
                     </a>
 
@@ -574,7 +580,7 @@
 
                 <li class="school-menu-item">
 
-                    <a href="contact-us.html" class="school-menu-link">
+                    <a href="<?php echo home_url('/contact-us'); ?>" class="school-menu-link">
                         Contact Us
                     </a>
 

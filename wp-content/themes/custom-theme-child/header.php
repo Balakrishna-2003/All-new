@@ -69,7 +69,7 @@
         <div class="school-header-inner">
 
             <!-- SCHOOL LOGO -->
-            <a href="#" aria-label="Shree Mahalingeshwara Vidyanikethana">
+            <a href="<?php echo home_url(); ?>" aria-label="Shree Mahalingeshwara Vidyanikethana">
                 <figure>
                     <img
                         src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/shree-mahalingeshwara-vidyanikethana-school-logo.png"

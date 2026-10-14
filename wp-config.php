@@ -20,7 +20,7 @@
 
 // ** Database settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define( 'DB_NAME', 'shree_mahalingeshwara_vidyanikethana_kunjthoor_db' );
+define( 'DB_NAME', 'school_website' );
 
 /** Database username */
 define( 'DB_USER', 'root' );
