@@ -1348,6 +1348,136 @@ switch ($page_slug) {
     </section>
             <?php
             break;
+
+    case 'mandatory-disclosure':
+        ?>
+        <!-- =========================================================
+         HERO — PLAYFUL / COLORFUL (UNCHANGED)
+    ========================================================= -->
+    <section class="fac-hero">
+        <div class="container">
+            <div class="fac-hero-inner">
+
+                <div class="fac-hero-text">
+                    <div class="fac-crumb">
+                        <!-- <a href="index.html">Home</a>
+                        <i class="bi bi-chevron-right"></i>
+                        <span class="current">Mandatory Disclosure</span> -->
+                        <?php 
+                            if ( function_exists('yoast_breadcrumb') ) {
+                                yoast_breadcrumb( '<a id="breadcrumbs">','</a>' );
+                            }
+                        ?>
+                    </div>
+
+                    <h1 class="fac-hero-title">
+                        Mandatory<br>
+                        <em>Disclosure</em>
+                    </h1>
+
+                    <p class="fac-hero-desc">
+                        In compliance with regulatory requirements, we publish
+                        all essential information about the school — including
+                        affiliation details, infrastructure, staff, and
+                        certified documents — for public transparency.
+                    </p>
+
+                    <div class="fac-hero-facts">
+                        <span><i class="bi bi-file-earmark-check"></i> Certified Documents</span>
+                        <span><i class="bi bi-shield-check"></i> Regulatory Compliance</span>
+                        <span><i class="bi bi-eye"></i> Public Transparency</span>
+                    </div>
+                </div>
+
+                <div class="fac-hero-visual">
+                    <div class="md-hero-wrap">
+
+                        <div class="md-ring-blue"></div>
+
+                        <div class="md-card">
+
+                            <div class="md-card-head">
+                                <div class="md-card-icon">
+                                    <i class="bi bi-file-earmark-text-fill"></i>
+                                </div>
+                                <div class="md-card-head-text">
+                                    <span>Official</span>
+                                    <strong>Document Checklist</strong>
+                                </div>
+                            </div>
+
+                            <div class="md-card-body">
+
+                                <div class="md-doc-line">
+                                    <div class="md-doc-check"><i class="bi bi-check-lg"></i></div>
+                                    <div class="md-doc-text">
+                                        <strong>School Affiliation</strong>
+                                        <span class="md-doc-bar"></span>
+                                    </div>
+                                </div>
+
+                                <div class="md-doc-line">
+                                    <div class="md-doc-check"><i class="bi bi-check-lg"></i></div>
+                                    <div class="md-doc-text">
+                                        <strong>Trust Registration</strong>
+                                        <span class="md-doc-bar"></span>
+                                    </div>
+                                </div>
+
+                                <div class="md-doc-line">
+                                    <div class="md-doc-check"><i class="bi bi-check-lg"></i></div>
+                                    <div class="md-doc-text">
+                                        <strong>Infrastructure Details</strong>
+                                        <span class="md-doc-bar"></span>
+                                    </div>
+                                </div>
+
+                                <div class="md-doc-line">
+                                    <div class="md-doc-check"><i class="bi bi-check-lg"></i></div>
+                                    <div class="md-doc-text">
+                                        <strong>Staff &amp; Faculty List</strong>
+                                        <span class="md-doc-bar"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="md-card-foot">
+                                <span class="md-card-foot-label">
+                                    <i class="bi bi-patch-check-fill"></i>
+                                    Verified &amp; Public
+                                </span>
+                                <div class="md-card-foot-dots">
+                                    <span></span><span></span><span></span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="md-float md-float-1">
+                            <div class="md-float-icon"><i class="bi bi-file-earmark-pdf-fill"></i></div>
+                            <div class="md-float-text">
+                                <small>Download</small>
+                                <strong>PDF Documents</strong>
+                            </div>
+                        </div>
+
+                        <div class="md-float md-float-2">
+                            <div class="md-float-icon"><i class="bi bi-shield-fill-check"></i></div>
+                            <div class="md-float-text">
+                                <small>Fully</small>
+                                <strong>Compliant</strong>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+        <?php 
+        break;
        
 
     default:

@@ -108,6 +108,13 @@ add_filter( 'wpseo_breadcrumb_links', function( $links ) {
     $category = reset( $categories );
     $current_index = count( $links ) - 1;
 
+    
+    // checking if the category slug matches the current page slug, if yes then return the links without adding category
+    if ( $category->slug === get_post_field( 'post_name', $page_id ) ) {
+        return $links;
+    }
+  
+
     array_splice( $links, $current_index, 0, array(
         array(
             'text' => $category->name,
@@ -623,9 +630,419 @@ add_action('save_post', function ($post_id) {
 
 
 
+/* =========================================================
+   MANDATORY DISCLOSURE - CUSTOM META BOX
+========================================================= */
 
-    
+/* 1. Register the meta box */
+add_action('add_meta_boxes', function () {
+
+    add_meta_box(
+        'mandatory_disclosure_details',
+        'Mandatory Disclosure Details',
+        'render_mandatory_disclosure_fields',
+        'post',
+        'normal',
+        'high'
+    );
+
+});
 
 
+/* 2. Render the fields */
+function render_mandatory_disclosure_fields($post) {
 
- 
+    // Display these fields only for Mandatory Disclosure posts.
+    // if (!has_category('mandatory-disclosure', $post->ID)) {
+
+    //     echo '<p>Assign the Mandatory Disclosure category to this post,
+    //     then save or reload the editor to display the fields.</p>';
+
+    //     return;
+    // }
+
+    // Security nonce.
+    wp_nonce_field(
+        'save_mandatory_disclosure_details',
+        'mandatory_disclosure_details_nonce'
+    );
+
+
+    /* Define all fields */
+    $fields = array(
+
+        // 1. GENERAL INFORMATION
+        'mdi_general_data_name' => array(
+            'label'   => 'Enter Data Name',
+            'type'    => 'textarea',
+            'section' => 'general',
+        ),
+
+        'mdi_general_data_value' => array(
+            'label'   => 'Enter Value',
+            'type'    => 'textarea',
+            'section' => 'general',
+        ),
+
+
+        // 2. DOCUMENT INFORMATION
+        'mdi_document_name' => array(
+            'label'   => 'Enter Document Name',
+            'type'    => 'textarea',
+            'section' => 'documents',
+        ),
+
+        'mdi_document_url' => array(
+            'label'   => 'Enter Document URL',
+            'type'    => 'text',
+            'section' => 'documents',
+        ),
+
+
+        // 3. RESULTS AND ACADEMICS
+        'mdi_results_data_name' => array(
+            'label'   => 'Enter Data Name',
+            'type'    => 'text',
+            'section' => 'results',
+        ),
+
+        'mdi_results_data_value' => array(
+            'label'   => 'Enter URL or Value',
+            'type'    => 'text',
+            'section' => 'results',
+        ),
+
+
+        // 4. SCHOOL COMMITTEES
+        'mdi_committee_document_name' => array(
+            'label'   => 'Enter Document Name',
+            'type'    => 'text',
+            'section' => 'committees',
+        ),
+
+        'mdi_committee_document_url' => array(
+            'label'   => 'Enter Document URL',
+            'type'    => 'text',
+            'section' => 'committees',
+        ),
+
+
+        // 5. STAFF (TEACHING)
+        'mdi_teaching_staff_data_name' => array(
+            'label'   => 'Enter Data Name',
+            'type'    => 'text',
+            'section' => 'teaching',
+        ),
+
+        'mdi_teaching_staff_data_value' => array(
+            'label'   => 'Enter URL or Value',
+            'type'    => 'text',
+            'section' => 'teaching',
+        ),
+
+        'mdi_teaching_staff_serial_number' => array(
+            'label'   => 'Serial Number Needed?',
+            'type'    => 'select',
+            'section' => 'teaching',
+            'options' => array(
+                ''    => 'Select an option',
+                'yes' => 'Yes',
+                'no'  => 'No',
+            ),
+        ),
+
+
+        // 6. SCHOOL INFRASTRUCTURE
+        'mdi_infrastructure_data_name' => array(
+            'label'   => 'Enter Data Name',
+            'type'    => 'text',
+            'section' => 'infrastructure',
+        ),
+
+        'mdi_infrastructure_data_value' => array(
+            'label'   => 'Enter URL or Value',
+            'type'    => 'textarea',
+            'section' => 'infrastructure',
+        ),
+
+    );
+
+
+    /* Section labels */
+    $sections = array(
+        'general'        => 'General Information',
+        'documents'      => 'Documents Information',
+        'results'        => 'Results and Academics',
+        'committees'     => 'School Committees',
+        'teaching'       => 'Staff (Teaching)',
+        'infrastructure' => 'School Infrastructure',
+    );
+
+
+    echo '<div id="mandatory-disclosure-fields"
+        style="max-width:900px;">';
+
+
+    /* Radio buttons */
+    echo '<div class="mandatory-disclosure-tabs"
+        style="display:flex;flex-wrap:wrap;gap:15px;margin:15px 0 25px;">';
+
+    foreach ($sections as $section_key => $section_label) {
+
+        echo '<label style="display:flex;align-items:center;gap:6px;">';
+
+        echo '<input type="radio"
+            name="mandatory_disclosure_section"
+            value="' . esc_attr($section_key) . '" '
+            . checked($section_key, 'general', false) . '>';
+
+        echo '<span>' . esc_html($section_label) . '</span>';
+
+        echo '</label>';
+    }
+
+    echo '</div>';
+
+
+    /* Generate input fields */
+    foreach ($fields as $key => $field) {
+
+        $value = get_post_meta(
+            $post->ID,
+            $key,
+            true
+        );
+
+        echo '<div class="mandatory-disclosure-field"
+            data-section="' . esc_attr($field['section']) . '"
+            style="margin-bottom:20px;">';
+
+
+        // Field label.
+        echo '<label for="' . esc_attr($key) . '"><strong>'
+            . esc_html($field['label'])
+            . '</strong></label><br>';
+
+
+        // Multiline textarea.
+        if ($field['type'] === 'textarea') {
+
+            echo '<textarea
+                id="' . esc_attr($key) . '"
+                name="' . esc_attr($key) . '"
+                rows="3"
+                style="width:100%;margin-top:6px;">'
+                . esc_textarea($value) .
+            '</textarea>';
+
+
+        // Dropdown/select.
+        } elseif ($field['type'] === 'select') {
+
+            echo '<select
+                id="' . esc_attr($key) . '"
+                name="' . esc_attr($key) . '"
+                style="width:100%;margin-top:6px;">';
+
+            foreach ($field['options'] as $option_value => $option_label) {
+
+                echo '<option value="' . esc_attr($option_value) . '" '
+                    . selected($value, $option_value, false) . '>'
+                    . esc_html($option_label)
+                    . '</option>';
+            }
+
+            echo '</select>';
+
+
+        // Normal text or URL input.
+        } else {
+
+            echo '<input
+                type="' . esc_attr($field['type']) . '"
+                id="' . esc_attr($key) . '"
+                name="' . esc_attr($key) . '"
+                value="' . esc_attr($value) . '"
+                style="width:100%;margin-top:6px;">';
+        }
+
+        echo '</div>';
+    }
+
+    echo '</div>';
+}
+
+
+/* =========================================================
+   3. ADMIN-ONLY JAVASCRIPT
+   Loads only in the WordPress Post Editor.
+   It does not affect the public-facing website.
+========================================================= */
+
+add_action('admin_enqueue_scripts', function ($hook) {
+
+    // Only load on the Add New Post and Edit Post screens.
+    if (!in_array($hook, array('post.php', 'post-new.php'), true)) {
+        return;
+    }
+
+    $screen = get_current_screen();
+
+    // Only work with regular WordPress Posts.
+    if (!$screen || $screen->post_type !== 'post') {
+        return;
+    }
+
+    wp_enqueue_script('jquery');
+
+    $script = <<<'JS'
+jQuery(function ($) {
+
+    // Limit every operation to our specific meta box.
+    var $box = $('#mandatory_disclosure_details');
+
+    if (!$box.length) {
+        return;
+    }
+
+    var $radios = $box.find(
+        'input[name="mandatory_disclosure_section"]'
+    );
+
+    var $fields = $box.find(
+        '.mandatory-disclosure-field'
+    );
+
+    function updateFields() {
+
+        var selected = $radios.filter(':checked').val();
+
+        if (!selected) {
+            return;
+        }
+
+        $fields.each(function () {
+
+            var $field = $(this);
+
+            $field.toggle(
+                $field.attr('data-section') === selected
+            );
+
+        });
+    }
+
+    $radios.on('change', updateFields);
+
+    // Display General Information initially.
+    updateFields();
+
+});
+JS;
+
+    wp_add_inline_script('jquery', $script, 'after');
+
+});
+
+
+/* =========================================================
+   4. SAVE MANDATORY DISCLOSURE DETAILS
+========================================================= */
+
+add_action('save_post', function ($post_id) {
+
+    // Only save regular Posts.
+    if (get_post_type($post_id) !== 'post') {
+        return;
+    }
+
+    // Verify the submitted nonce.
+    if (
+        !isset($_POST['mandatory_disclosure_details_nonce']) ||
+        !wp_verify_nonce(
+            sanitize_text_field(
+                wp_unslash(
+                    $_POST['mandatory_disclosure_details_nonce']
+                )
+            ),
+            'save_mandatory_disclosure_details'
+        )
+    ) {
+        return;
+    }
+
+    // Ignore autosaves, revisions and users without permission.
+    if (
+        (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) ||
+        wp_is_post_revision($post_id) ||
+        !current_user_can('edit_post', $post_id)
+    ) {
+        return;
+    }
+
+
+    // Allowed fields and their types.
+    $textarea_fields = array(
+        'mdi_general_data_name',
+        'mdi_general_data_value',
+        'mdi_document_name',
+        'mdi_infrastructure_data_value',
+    );
+
+    $all_fields = array(
+        'mdi_general_data_name',
+        'mdi_general_data_value',
+
+        'mdi_document_name',
+        'mdi_document_url',
+
+        'mdi_results_data_name',
+        'mdi_results_data_value',
+
+        'mdi_committee_document_name',
+        'mdi_committee_document_url',
+
+        'mdi_teaching_staff_data_name',
+        'mdi_teaching_staff_data_value',
+        'mdi_teaching_staff_serial_number',
+
+        'mdi_infrastructure_data_name',
+        'mdi_infrastructure_data_value',
+    );
+
+
+    // Save the submitted values.
+    foreach ($all_fields as $key) {
+
+        if (!isset($_POST[$key])) {
+            continue;
+        }
+
+        $value = wp_unslash($_POST[$key]);
+
+        // Accept only the allowed dropdown choices.
+        if ($key === 'mdi_teaching_staff_serial_number') {
+
+            $value = sanitize_text_field($value);
+
+            if (!in_array($value, array('', 'yes', 'no'), true)) {
+                $value = '';
+            }
+
+        // Multiline fields.
+        } elseif (in_array($key, $textarea_fields, true)) {
+
+            $value = sanitize_textarea_field($value);
+
+        // Single-line fields, including document URL text inputs.
+        } else {
+
+            $value = sanitize_text_field($value);
+        }
+
+        update_post_meta($post_id, $key, $value);
+    }
+
+});
+/* END MANDATORY DISCLOSURE CODE */
+

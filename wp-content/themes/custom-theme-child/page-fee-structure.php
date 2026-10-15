@@ -75,7 +75,7 @@ $colors = array(
                             );
                             // $tuition_fee = trim((string) $tuition_fe);
                             ?>
-                             <tr>
+                        <tr>
                             <td class="fee-sn" data-label="Sl No"><span class="fee-sn-badge"><?php echo esc_html(sprintf("%02d", $serial++)); ?></span></td>
                             <td>
                                 <div class="fee-grade-cell">
