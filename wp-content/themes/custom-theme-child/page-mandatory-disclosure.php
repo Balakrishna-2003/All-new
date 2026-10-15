@@ -2,11 +2,57 @@
 /* Template Name: Mandatory Disclosure Template*/
 
 
-$fee_structures = new WP_Query(array(
+$mandatory_disclousure_general_info = new WP_Query(array(
     'post_type'      => 'post',
     'post_status'    => 'publish',
     'posts_per_page' => -1,
-    'category_name'  => 'mandatory-disclosure',
+    'category_name'  => 'mandatory-disclosure-general-info',
+    'orderby'        => 'date',
+    'order'          => 'ASC',
+));
+
+
+$mandatory_disclousure_documents = new Wp_Query(array(
+    'post_type'      => 'post',
+    'post_status'    => 'publish',
+    'posts_per_page' => -1,
+    'category_name'  => 'mandatory-disclosure-documents',
+    'orderby'        => 'date',
+    'order'          => 'ASC',
+));
+
+$mandatory_disclousure_results = new Wp_Query(array(
+    'post_type'      => 'post',
+    'post_status'    => 'publish',
+    'posts_per_page' => -1,
+    'category_name'  => 'mandatory-disclosure-results',
+    'orderby'        => 'date',
+    'order'          => 'ASC',
+));
+
+$mandatory_disclousure_school_committee = new Wp_Query(array(
+    'post_type'      => 'post',
+    'post_status'    => 'publish',
+    'posts_per_page' => -1,
+    'category_name'  => 'mandatory-disclosure-school-committee',
+    'orderby'        => 'date',
+    'order'          => 'ASC',
+));
+
+$mandatory_disclousure_staff_teaching = new Wp_Query(array(
+    'post_type'      => 'post',
+    'post_status'    => 'publish',
+    'posts_per_page' => -1,
+    'category_name'  => 'mandatory-disclosure-staff-teaching',
+    'orderby'        => 'date',
+    'order'          => 'ASC',
+));
+
+$mandatory_disclousure_school_infrastructure = new Wp_Query(array(
+    'post_type'      => 'post',
+    'post_status'    => 'publish',
+    'posts_per_page' => -1,
+    'category_name'  => 'mandatory-disclosure-school-infrastructure',
     'orderby'        => 'date',
     'order'          => 'ASC',
 ));
@@ -19,126 +65,7 @@ get_header();
 
 <article>
 
-    <!-- =========================================================
-         HERO — PLAYFUL / COLORFUL (UNCHANGED)
-    ========================================================= -->
-    <section class="fac-hero">
-        <div class="container">
-            <div class="fac-hero-inner">
-
-                <div class="fac-hero-text">
-                    <div class="fac-crumb">
-                        <a href="index.html">Home</a>
-                        <i class="bi bi-chevron-right"></i>
-                        <span class="current">Mandatory Disclosure</span>
-                    </div>
-
-                    <h1 class="fac-hero-title">
-                        Mandatory<br>
-                        <em>Disclosure</em>
-                    </h1>
-
-                    <p class="fac-hero-desc">
-                        In compliance with regulatory requirements, we publish
-                        all essential information about the school — including
-                        affiliation details, infrastructure, staff, and
-                        certified documents — for public transparency.
-                    </p>
-
-                    <div class="fac-hero-facts">
-                        <span><i class="bi bi-file-earmark-check"></i> Certified Documents</span>
-                        <span><i class="bi bi-shield-check"></i> Regulatory Compliance</span>
-                        <span><i class="bi bi-eye"></i> Public Transparency</span>
-                    </div>
-                </div>
-
-                <div class="fac-hero-visual">
-                    <div class="md-hero-wrap">
-
-                        <div class="md-ring-blue"></div>
-
-                        <div class="md-card">
-
-                            <div class="md-card-head">
-                                <div class="md-card-icon">
-                                    <i class="bi bi-file-earmark-text-fill"></i>
-                                </div>
-                                <div class="md-card-head-text">
-                                    <span>Official</span>
-                                    <strong>Document Checklist</strong>
-                                </div>
-                            </div>
-
-                            <div class="md-card-body">
-
-                                <div class="md-doc-line">
-                                    <div class="md-doc-check"><i class="bi bi-check-lg"></i></div>
-                                    <div class="md-doc-text">
-                                        <strong>School Affiliation</strong>
-                                        <span class="md-doc-bar"></span>
-                                    </div>
-                                </div>
-
-                                <div class="md-doc-line">
-                                    <div class="md-doc-check"><i class="bi bi-check-lg"></i></div>
-                                    <div class="md-doc-text">
-                                        <strong>Trust Registration</strong>
-                                        <span class="md-doc-bar"></span>
-                                    </div>
-                                </div>
-
-                                <div class="md-doc-line">
-                                    <div class="md-doc-check"><i class="bi bi-check-lg"></i></div>
-                                    <div class="md-doc-text">
-                                        <strong>Infrastructure Details</strong>
-                                        <span class="md-doc-bar"></span>
-                                    </div>
-                                </div>
-
-                                <div class="md-doc-line">
-                                    <div class="md-doc-check"><i class="bi bi-check-lg"></i></div>
-                                    <div class="md-doc-text">
-                                        <strong>Staff &amp; Faculty List</strong>
-                                        <span class="md-doc-bar"></span>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="md-card-foot">
-                                <span class="md-card-foot-label">
-                                    <i class="bi bi-patch-check-fill"></i>
-                                    Verified &amp; Public
-                                </span>
-                                <div class="md-card-foot-dots">
-                                    <span></span><span></span><span></span>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="md-float md-float-1">
-                            <div class="md-float-icon"><i class="bi bi-file-earmark-pdf-fill"></i></div>
-                            <div class="md-float-text">
-                                <small>Download</small>
-                                <strong>PDF Documents</strong>
-                            </div>
-                        </div>
-
-                        <div class="md-float md-float-2">
-                            <div class="md-float-icon"><i class="bi bi-shield-fill-check"></i></div>
-                            <div class="md-float-text">
-                                <small>Fully</small>
-                                <strong>Compliant</strong>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
+    <?php get_template_part('page-banners'); ?>
 
 
     <!-- =========================================================
@@ -167,9 +94,9 @@ get_header();
 
                             <?php 
                                 $serial = 1;
-                                    if ($fee_structures->have_posts()) :
-                                        while ($fee_structures->have_posts()) :
-                                            $fee_structures->the_post();
+                                    if ($mandatory_disclousure_general_info->have_posts()) :
+                                        while ($mandatory_disclousure_general_info->have_posts()) :
+                                            $mandatory_disclousure_general_info->the_post();
 
                                             $fee_id = get_the_ID();
 
@@ -184,6 +111,8 @@ get_header();
                                                     'mdi_general_data_value',
                                                     true
                                             );
+
+                                            if(!empty($general_info_key)){
                             
                             ?>
                             
@@ -193,10 +122,15 @@ get_header();
                                 <td><?php echo $general_info_value; ?></td>
                             </tr>
                             <?php
+                                }
                         endwhile;
                     else :
                         ?>
-                        <h1> not data found </h1>
+                        <tr>
+                                <td colspan="5" class="fac-empty">
+                                    No Records Found
+                                </td>
+                            </tr>
                         <?php
                     endif;
                     ?>
@@ -205,7 +139,7 @@ get_header();
                                 <td>Mandatory Public Disclosure (Accreditation &amp; Compliance)</td>
                                 <td><a href="#" class="mpd-download-link"><i class="bi bi-file-earmark-arrow-down-fill"></i> Click to Download</a></td>
                             </tr> -->
-                            <tr>
+                            <!-- <tr>
                                 <td class="mpd-sno-cell">1</td>
                                 <td>NAME OF THE SCHOOL</td>
                                 <td>Shree Mahalingeshwara Vidyanikethana</td>
@@ -239,7 +173,7 @@ get_header();
                                 <td class="mpd-sno-cell">7</td>
                                 <td>Contact Details</td>
                                 <td><a href="tel:+914998278940" class="mpd-link">04998 278940</a> / <a href="tel:+918921400582" class="mpd-link">+91 89214 00582</a></td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
                 </div>
@@ -261,9 +195,9 @@ get_header();
 
                             <?php 
                                 $serial = 1;
-                                    if ($fee_structures->have_posts()) :
-                                        while ($fee_structures->have_posts()) :
-                                            $fee_structures->the_post();
+                                    if ($mandatory_disclousure_documents->have_posts()) :
+                                        while ($mandatory_disclousure_documents->have_posts()) :
+                                            $mandatory_disclousure_documents->the_post();
 
                                             $fee_id = get_the_ID();
 
@@ -280,7 +214,7 @@ get_header();
                                             );
 
                                             $url = $document_info_value;
-                                            echo $url;
+                                            // echo $url;
 
                                             $url_path = parse_url($url, PHP_URL_PATH);
                                             $extension = strtolower(
@@ -308,31 +242,31 @@ get_header();
                                                     case 'xls':
                                                     case 'xlsx':
                                                     case 'xlsm':
-                                                        $label = '📊 View Excel Spreadsheet';
+                                                        $label = '<i class="bi bi-file-earmark-excel-fill"></i> View /Download Excel';
                                                         break;
 
                                                     // Word documents
                                                     case 'doc':
                                                     case 'docx':
-                                                        $label = '📝 View Word Document';
+                                                        $label = '<i class="bi bi-file-earmark-word-fill"></i>View /Download Word';
                                                         break;
 
                                                     // PowerPoint presentations
                                                     case 'ppt':
                                                     case 'pptx':
-                                                        $label = '📽️ View Presentation';
+                                                        $label = '<i class="bi bi-file-earmark-ppt-fill"></i> View / Download PPT';
                                                         break;
 
                                                     // CSV files
                                                     case 'csv':
-                                                        $label = '📊 View CSV File';
+                                                        $label = '<i class="bi bi-file-earmark-spreadsheet-fill"></i> View / Download CSV';
                                                         break;
 
                                                     
 
                                                     // Unknown or other file types
                                                     default:
-                                                        $label = '<i class="bi bi-file-earmark-pdf-fill"></i> View PDF Document <?php echo $extension; ?>';
+                                                        $label = '';
                                                         break;
                                                 }
                                             }
@@ -354,11 +288,15 @@ get_header();
                                 endwhile;
                                 else :
                                 ?>
-                                    <h1> not data found </h1>
+                            <tr>
+                                <td colspan="5" class="fac-empty">
+                                    No Records Found
+                                </td>
+                            </tr>
                             <?php
                                 endif;
                             ?>
-                            <tr>
+                            <!-- <tr>
                                 <td class="mpd-sno-cell">1</td>
                                 <td>LAND CERTIFICATE (POSSESSION CERTIFICATE)</td>
                                 <td>
@@ -401,7 +339,7 @@ get_header();
                             </tr>
                             <tr>
                                 <td class="mpd-sno-cell">8</td>
-                                <!-- <td>LAND REVENUE &amp; BUILDING TAX RECEIPT</td> -->
+                                
                                  <td>
                                     RECOGNITION
                                  </td>
@@ -413,7 +351,7 @@ get_header();
                                 <td class="mpd-sno-cell">9</td>
                                 <td>MANDATORY DISCLOSURE</td>
                                 <td><a href="pdf/MANDATORY-PUBLIC-DISCLOSURE.pdf" target="_blank" class="mpd-download-link"><i class="bi bi-file-earmark-pdf-fill"></i> View / Download PDF</a></td>
-                            </tr>
+                            </tr> -->
                             <!--
                             <tr>
                                 <td class="mpd-sno-cell">10</td>
@@ -454,7 +392,110 @@ get_header();
                             </tr>
                         </thead>
                         <tbody>
+                            <?php 
+                                $serial = 1;
+                                    if ($mandatory_disclousure_results->have_posts()) :
+                                        while ($mandatory_disclousure_results->have_posts()) :
+                                            $mandatory_disclousure_results->the_post();
+
+                                            $fee_id = get_the_ID();
+
+                                            $results_info_key = get_post_meta(
+                                                    $fee_id,
+                                                    'mdi_results_data_name',
+                                                    true
+                                            );
+
+                                            $results_info_value = get_post_meta(
+                                                    $fee_id,
+                                                    'mdi_results_data_value',
+                                                    true
+                                            );
+
+                                            $url = $results_info_value;
+                                            // echo $url;
+
+                                            $url_path = parse_url($url, PHP_URL_PATH);
+                                            $extension = strtolower(
+                                                pathinfo($url_path ?? '', PATHINFO_EXTENSION)
+                                            );
+                                                                                    
+                                            if (!empty($url) && esc_url($url) !== '') {
+                                                                                    
+                                                // if ($extension === 'pdf') {
+                                                //     $label = '📄 View PDF Document';
+                                                // } else {
+                                                //     $label = '📁 View or Download File';
+                                                // }
+
+                                                
+
+                                                switch ($extension) {
+
+                                                    // PDF files
+                                                    case 'pdf':
+                                                        $label = '<i class="bi bi-file-earmark-pdf-fill"></i> View PDF Document';
+                                                        break;
+
+                                                    // Excel files
+                                                    case 'xls':
+                                                    case 'xlsx':
+                                                    case 'xlsm':
+                                                        $label = '<i class="bi bi-file-earmark-excel-fill"></i> View /Download Excel';
+                                                        break;
+
+                                                    // Word documents
+                                                    case 'doc':
+                                                    case 'docx':
+                                                        $label = '<i class="bi bi-file-earmark-word-fill"></i>View /Download Word';
+                                                        break;
+
+                                                    // PowerPoint presentations
+                                                    case 'ppt':
+                                                    case 'pptx':
+                                                        $label = '<i class="bi bi-file-earmark-ppt-fill"></i> View / Download PPT';
+                                                        break;
+
+                                                    // CSV files
+                                                    case 'csv':
+                                                        $label = '<i class="bi bi-file-earmark-spreadsheet-fill"></i> View / Download CSV';
+                                                        break;
+
+                                                    
+
+                                                    // Unknown or other file types
+                                                    default:
+                                                        $label = '';
+                                                        break;
+                                                }
+                                            }
+
+                                            if(!empty($results_info_key)){
+                            
+                            ?>
+
                             <tr>
+                                <td class="mpd-sno-cell"><?php echo $serial++; ?></td>
+                                <td><?php echo $results_info_key; ?> </td>
+                                <td>
+                                    <a href="<?php echo $results_info_value ?>" target="_blank" class="mpd-download-link"> <?php echo $label; ?></a>
+                                </td>
+                            </tr>
+
+                            <?php
+                                            }
+                                endwhile;
+                                else :
+                                ?>
+                                    <tr>
+                                <td colspan="5" class="fac-empty">
+                                    No Records Found
+                                </td>
+                            </tr>
+                            <?php
+                                endif;
+                            ?>
+                            <!-- <tr>
                                 <td class="mpd-sno-cell">1</td>
                                 <td>Annual Academic Calendar</td>
                                 <td>
@@ -465,11 +506,13 @@ get_header();
                                 <td class="mpd-sno-cell">2</td>
                                 <td>FEE STRUCTURE</td>
                                 <td><a href="pdf/Fee Structure 2026.pdf" class="mpd-download-link" target="_blank"><i class="bi bi-file-earmark-pdf-fill"></i></i> View / Download PDF</a></td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
                 </div>
             </div>
+
+            
 
             <!-- D. SCHOOL COMMITTEES -->
             <div class="mpd-block">
@@ -484,7 +527,101 @@ get_header();
                             </tr>
                         </thead>
                         <tbody>
+                            <?php 
+                                $serial = 1;
+                                    if ($mandatory_disclousure_school_committee->have_posts()) :
+                                        while ($mandatory_disclousure_school_committee->have_posts()) :
+                                            $mandatory_disclousure_school_committee->the_post();
+
+                                            $fee_id = get_the_ID();
+
+                                            $school_committee_info_key = get_post_meta(
+                                                    $fee_id,
+                                                    'mdi_committee_document_name',
+                                                    true
+                                            );
+
+                                            $school_committee_info_value = get_post_meta(
+                                                    $fee_id,
+                                                    'mdi_committee_document_url',
+                                                    true
+                                            );
+
+                                            $url = $school_committee_info_value;
+                                            
+
+                                            $url_path = parse_url($url, PHP_URL_PATH);
+                                            $extension = strtolower(
+                                                pathinfo($url_path ?? '', PATHINFO_EXTENSION)
+                                            );
+                                                                                    
+                                            if (!empty($url) && esc_url($url) !== '') {
+                                                switch ($extension) {
+
+                                                    // PDF files
+                                                    case 'pdf':
+                                                        $label = '<i class="bi bi-file-earmark-pdf-fill"></i> View PDF Document';
+                                                        break;
+
+                                                    // Excel files
+                                                    case 'xls':
+                                                    case 'xlsx':
+                                                    case 'xlsm':
+                                                        $label = '<i class="bi bi-file-earmark-excel-fill"></i> View /Download Excel';
+                                                        break;
+
+                                                    // Word documents
+                                                    case 'doc':
+                                                    case 'docx':
+                                                        $label = '<i class="bi bi-file-earmark-word-fill"></i>View /Download Word';
+                                                        break;
+
+                                                    // PowerPoint presentations
+                                                    case 'ppt':
+                                                    case 'pptx':
+                                                        $label = '<i class="bi bi-file-earmark-ppt-fill"></i> View / Download PPT';
+                                                        break;
+
+                                                    // CSV files
+                                                    case 'csv':
+                                                        $label = '<i class="bi bi-file-earmark-spreadsheet-fill"></i> View / Download CSV';
+                                                        break;
+
+                                                    
+
+                                                    // Unknown or other file types
+                                                    default:
+                                                        $label = '';
+                                                        break;
+                                                }
+                                            }
+
+                                            if(!empty($school_committee_info_key)){
+                            
+                            ?>
+
                             <tr>
+                                <td class="mpd-sno-cell"><?php echo $serial++; ?></td>
+                                <td><?php echo $school_committee_info_key; ?> </td>
+                                <td>
+                                    <a href="<?php echo $school_committee_info_value ?>" target="_blank" class="mpd-download-link"> <?php echo $label; ?></a>
+                                </td>
+                            </tr>
+
+                            <?php
+                                            }
+                                endwhile;
+                                else :
+                                ?>
+                                    <tr>
+                                <td colspan="5" class="fac-empty">
+                                    No Records Found
+                                </td>
+                            </tr>
+                            <?php
+                                endif;
+                            ?>
+                            <!-- <tr>
                                 <td class="mpd-sno-cell">1</td>
                                 <td>School Managing Committees</td>
                                 <td>
@@ -497,7 +634,7 @@ get_header();
                                     Parents Teachers Association (PTA Executive Committee)</td>
                                 <td><a href="pdf/P%20T%20A.pdf" target="_blank" class="mpd-download-link"><i class="bi bi-file-earmark-pdf-fill"></i> View / Download PDF</a>
                                 </td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
                 </div>
@@ -516,7 +653,107 @@ get_header();
                             </tr>
                         </thead>
                         <tbody>
+                            <?php 
+                                $serial = 1;
+                                    if ($mandatory_disclousure_staff_teaching->have_posts()) :
+                                        while ($mandatory_disclousure_staff_teaching->have_posts()) :
+                                            $mandatory_disclousure_staff_teaching->the_post();
+
+                                            $fee_id = get_the_ID();
+
+                                            $staff_teaching_info_key = get_post_meta(
+                                                    $fee_id,
+                                                    'mdi_teaching_staff_data_name',
+                                                    true
+                                            );
+
+                                            $staff_teaching_info_value = get_post_meta(
+                                                    $fee_id,
+                                                    'mdi_teaching_staff_data_value',
+                                                    true
+                                            );
+
+                                            $staff_teaching_is_serial_needed = get_post_meta(
+                                                $fee_id,
+                                                'mdi_teaching_staff_serial_number',
+                                                true
+                                            );
+
+                                            $url = $staff_teaching_info_value;
+                                            // echo $staff_teaching_is_serial_needed;
+
+                                            $url_path = parse_url($url, PHP_URL_PATH);
+                                            $extension = strtolower(
+                                                pathinfo($url_path ?? '', PATHINFO_EXTENSION)
+                                            );
+                                                                                    
+                                            if (!empty($url) && esc_url($url) !== '') {
+                                                switch ($extension) {
+
+                                                    // PDF files
+                                                    case 'pdf':
+                                                        $label = '<i class="bi bi-file-earmark-pdf-fill"></i> View PDF Document';
+                                                        break;
+
+                                                    // Excel files
+                                                    case 'xls':
+                                                    case 'xlsx':
+                                                    case 'xlsm':
+                                                        $label = '<i class="bi bi-file-earmark-excel-fill"></i> View /Download Excel';
+                                                        break;
+
+                                                    // Word documents
+                                                    case 'doc':
+                                                    case 'docx':
+                                                        $label = '<i class="bi bi-file-earmark-word-fill"></i>View /Download Word';
+                                                        break;
+
+                                                    // PowerPoint presentations
+                                                    case 'ppt':
+                                                    case 'pptx':
+                                                        $label = '<i class="bi bi-file-earmark-ppt-fill"></i> View / Download PPT';
+                                                        break;
+
+                                                    // CSV files
+                                                    case 'csv':
+                                                        $label = '<i class="bi bi-file-earmark-spreadsheet-fill"></i> View / Download CSV';
+                                                        break;
+
+                                                    
+
+                                                    // Unknown or other file types
+                                                    default:
+                                                        $label = $url;
+                                                        break;
+                                                }
+                                            }
+
+                                            if(!empty($staff_teaching_info_key)){
+                            
+                            ?>
+
                             <tr>
+                                <td class="mpd-sno-cell"><?php echo $staff_teaching_is_serial_needed === 'yes' ?  $serial++ : '' ?></td>
+                                <td <?php echo $staff_teaching_is_serial_needed === 'no' ?  'class="mpd-sub-indent"' : '' ?>><?php echo $staff_teaching_info_key; ?> </td>
+                                <td>
+                                    <a href="<?php echo $staff_teaching_info_value ?>" target="_blank" class="mpd-download-link"> <?php echo $label; ?></a>
+                                </td>
+                            </tr>
+
+                            <?php
+                                            }
+                                endwhile;
+                                else :
+                                ?>
+                                    <tr>
+                                <td colspan="5" class="fac-empty">
+                                    No Records Found
+                                </td>
+                            </tr>
+                            <?php
+                                endif;
+                            ?>
+                            <!-- <tr>
                                 <td class="mpd-sno-cell">1</td>
                                 <td>Academic Staff Details</td>
                                 <td>
@@ -538,7 +775,7 @@ get_header();
                                 <td class="mpd-sno-cell"></td>
                                 <td class="mpd-sub-indent">Vice Principal</td>
                                 <td>1</td>
-                            </tr>
+                            </tr> -->
                             <!-- <tr>
                                 <td class="mpd-sno-cell"></td>
                                 <td class="mpd-sub-indent">PGT</td>
@@ -549,7 +786,7 @@ get_header();
                                 <td class="mpd-sub-indent">TGT</td>
                                 <td>4</td>
                             </tr> -->
-                            <tr>
+                            <!-- <tr>
                                 <td class="mpd-sno-cell"></td>
                                 <td class="mpd-sub-indent">TGT</td>
                                 <td>6</td>
@@ -578,7 +815,7 @@ get_header();
                                 <td class="mpd-sno-cell">3</td>
                                 <td>Section Teacher Ratio</td>
                                 <td>1:1.5</td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
                 </div>
@@ -597,7 +834,45 @@ get_header();
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+
+                        <?php 
+                        $serial = 1;
+                            if($mandatory_disclousure_school_infrastructure->have_posts()):
+                                while($mandatory_disclousure_school_infrastructure->have_posts()):
+                                    $mandatory_disclousure_school_infrastructure->the_post();
+
+                                    $fee_id = get_the_ID();
+
+                                    $school_infrastructure_info_key = get_post_meta(
+                                        $fee_id,
+                                        'mdi_infrastructure_data_name',
+                                        true
+                                    );
+
+                                    $school_infrastructure_info_value = get_post_meta(
+                                        $fee_id,
+                                        'mdi_infrastructure_data_value',
+                                        true
+                                    );
+                                    ?>
+                                    <tr>
+                                <td class="mpd-sno-cell"><?php echo $serial; ?></td>
+                                <td><?php echo $school_infrastructure_info_key ?></td>
+                                <td><?php echo $school_infrastructure_info_value ?></td>
+                            </tr>
+                            <?php
+                                endwhile;
+                            else:
+                                ?>
+                                <tr>
+                                    <td colspan="5" class="fac-empty">No Records Found</td>
+                                </tr>
+                                <?php 
+                                
+                            endif;
+
+                        ?>
+                            <!-- <tr>
                                 <td class="mpd-sno-cell">1</td>
                                 <td>Total Campus Area of the school (in sqr. Mtrs)</td>
                                 <td>6,024 sqr. mtrs. (1.5 Acre)</td>
@@ -630,7 +905,7 @@ get_header();
                                 <td class="mpd-sno-cell">6</td>
                                 <td>No. of Boys Toilet</td>
                                 <td>15</td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
                 </div>
