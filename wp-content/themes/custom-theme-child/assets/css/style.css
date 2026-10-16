@@ -15284,6 +15284,9 @@ figcaption, figure{margin: 0; padding: 0;}
 /* =========================================================
    GALLERY PAGE
 ========================================================= */
+/* =========================================================
+   GALLERY PAGE
+========================================================= */
 .gal-hero-wrap {
     position: relative;
     width: 100%;
@@ -15500,11 +15503,19 @@ figcaption, figure{margin: 0; padding: 0;}
     box-shadow: 0 10px 22px rgba(8, 47, 135, 0.22);
 }
 
+/* ---------- GRID (hidden until layout is ready) ---------- */
 .gal-grid {
     position: relative;
     width: 100%;
+    min-height: 240px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+.gal-grid.gal-ready {
+    opacity: 1;
 }
 
+/* ---------- TILE ---------- */
 .gal-tile {
     position: absolute;
     margin: 0;
@@ -15513,11 +15524,14 @@ figcaption, figure{margin: 0; padding: 0;}
     border-radius: 14px;
     overflow: hidden;
     cursor: pointer;
-    background: transparent;
+    /* Soft placeholder fill while the photo is still loading */
+    background: linear-gradient(135deg, #e6eef9 0%, #d6e2f1 100%);
     box-shadow: 0 8px 22px rgba(8, 47, 135, 0.08);
     transition: box-shadow 0.35s ease, transform 0.35s ease, opacity 0.35s ease;
     line-height: 0;
     outline: none;
+    /* Prevents images from bleeding outside their slot before JS sizes them */
+    contain: layout paint;
 }
 .gal-tile:focus-visible {
     outline: 3px solid var(--school-orange);
@@ -15529,15 +15543,56 @@ figcaption, figure{margin: 0; padding: 0;}
 }
 .gal-tile.is-hidden { display: none !important; }
 
+/* ---------- IMAGE (each fades in individually) ---------- */
 .gal-tile img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
-    transition: transform 0.6s ease;
+    opacity: 0;
+    transition: transform 0.6s ease, opacity 0.55s ease;
+}
+.gal-tile img.gal-img-loaded {
+    opacity: 1;
 }
 .gal-tile:hover img { transform: scale(1.05); }
 
+/* ---------- SHIMMER — light sweeps top-left → bottom-right while loading ---------- */
+.gal-tile::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 1;
+    background-image: linear-gradient(
+        115deg,
+        rgba(255, 255, 255, 0)    0%,
+        rgba(255, 255, 255, 0)    35%,
+        rgba(255, 255, 255, 0.70) 50%,
+        rgba(255, 255, 255, 0)    65%,
+        rgba(255, 255, 255, 0)    100%
+    );
+    background-size: 200% 100%;
+    background-repeat: no-repeat;
+    background-position: 200% 0;
+    animation: galShimmer 1.7s ease-in-out infinite;
+    opacity: 1;
+    transition: opacity 0.45s ease;
+}
+
+@keyframes galShimmer {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -100% 0; }
+}
+
+/* When the image has finished loading, fade the shimmer away */
+.gal-tile.gal-tile-loaded::after {
+    opacity: 0;
+    animation: none;
+}
+
+/* Caption overlay */
 .gal-tile-cap {
     position: absolute;
     inset: auto 0 0 0;
@@ -15551,6 +15606,7 @@ figcaption, figure{margin: 0; padding: 0;}
     transition: opacity 0.35s ease, transform 0.35s ease;
     pointer-events: none;
     margin: 0;
+    z-index: 2;
 }
 .gal-tile:hover .gal-tile-cap,
 .gal-tile:focus-visible .gal-tile-cap {
@@ -15570,6 +15626,7 @@ figcaption, figure{margin: 0; padding: 0;}
     font: 700 13px/1.25 "Playfair Display", serif;
 }
 
+/* Magnifier icon on hover */
 .gal-tile::before {
     content: "\F52A";
     font-family: "bootstrap-icons";
@@ -15597,6 +15654,7 @@ figcaption, figure{margin: 0; padding: 0;}
     transform: scale(1);
 }
 
+/* Lightbox */
 #galLightbox .modal-content { background: transparent; border: 0; }
 #galLightbox img {
     width: 100%;

@@ -1046,3 +1046,412 @@ add_action('save_post', function ($post_id) {
 });
 /* END MANDATORY DISCLOSURE CODE */
 
+
+
+
+
+function smvk_register_gallery_collection() {
+    register_post_type('gallery_collection', array(
+        'labels' => array(
+            'name'          => 'Gallery Collections',
+            'singular_name' => 'Gallery Collection',
+            'add_new_item'  => 'Add New Gallery Collection',
+            'edit_item'     => 'Edit Gallery Collection',
+            'menu_name'     => 'Gallery Collections',
+        ),
+        'public'       => false,
+        'show_ui'      => true,
+        'show_in_rest' => false,
+        'menu_icon'    => 'dashicons-format-gallery',
+        'supports'     => array('title'),
+    ));
+}
+add_action('init', 'smvk_register_gallery_collection');
+
+
+/**
+ * Add category and multiple-image fields.
+ */
+function smvk_gallery_collection_metabox() {
+    add_meta_box(
+        'smvk_gallery_collection_details',
+        'Gallery Photos and Category',
+        'smvk_gallery_collection_fields',
+        'gallery_collection',
+        'normal',
+        'high'
+    );
+}
+add_action('add_meta_boxes', 'smvk_gallery_collection_metabox');
+
+
+function smvk_gallery_collection_fields($post) {
+    $category = get_post_meta(
+        $post->ID,
+        '_smvk_gallery_category',
+        true
+    );
+
+    $images = get_post_meta(
+        $post->ID,
+        '_smvk_gallery_images',
+        true
+    );
+
+    if (!is_array($images)) {
+        $images = array();
+    }
+
+    $categories = array(
+        'events'    => 'Events',
+        'sports'    => 'Sports',
+        'culture'   => 'Cultural',
+        'classroom' => 'Classroom',
+        'campus'    => 'Campus',
+    );
+
+    wp_nonce_field(
+        'smvk_save_gallery_collection',
+        'smvk_gallery_nonce'
+    );
+    ?>
+
+    <p>
+        <label for="smvk_gallery_category">
+            <strong>Choose category</strong>
+        </label>
+    </p>
+
+    <select
+        id="smvk_gallery_category"
+        name="smvk_gallery_category"
+        required
+    >
+        <option value="">-- Select Category --</option>
+
+        <?php foreach ($categories as $value => $label) : ?>
+            <option
+                value="<?php echo esc_attr($value); ?>"
+                <?php selected($category, $value); ?>
+            >
+                <?php echo esc_html($label); ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+
+    <hr>
+
+    <h3>Images in this collection</h3>
+
+    <p>Upload multiple images, then enter a separate title and caption for each one.</p>
+
+    <button
+        type="button"
+        class="button button-primary"
+        id="smvk_add_gallery_images"
+    >
+        Select / Add Images
+    </button>
+
+    <div id="smvk_gallery_image_list" style="margin-top:20px;">
+
+        <?php foreach ($images as $image) :
+            $image_id = absint($image['id'] ?? 0);
+
+            if (!$image_id || !wp_attachment_is_image($image_id)) {
+                continue;
+            }
+
+            $image_title = $image['title'] ?? '';
+            $image_caption = $image['caption'] ?? '';
+            ?>
+
+            <div class="smvk-gallery-row"
+                 data-id="<?php echo esc_attr($image_id); ?>"
+                 style="display:flex;gap:15px;padding:15px;margin-bottom:12px;border:1px solid #ddd;background:#fff;">
+
+                <div style="width:120px;flex-shrink:0;">
+                    <?php
+                    echo wp_get_attachment_image(
+                        $image_id,
+                        'thumbnail',
+                        false,
+                        array('style' => 'width:100%;height:auto;')
+                    );
+                    ?>
+                    <input
+                        type="hidden"
+                        name="smvk_gallery_images[<?php echo esc_attr($image_id); ?>][id]"
+                        value="<?php echo esc_attr($image_id); ?>"
+                    >
+                </div>
+
+                <div style="flex:1;">
+                    <p>
+                        <label>Image title</label>
+                        <input
+                            type="text"
+                            class="widefat"
+                            name="smvk_gallery_images[<?php echo esc_attr($image_id); ?>][title]"
+                            value="<?php echo esc_attr($image_title); ?>"
+                            required
+                        >
+                    </p>
+
+                    <p>
+                        <label>Image caption</label>
+                        <textarea
+                            class="widefat"
+                            rows="2"
+                            name="smvk_gallery_images[<?php echo esc_attr($image_id); ?>][caption]"
+                        ><?php echo esc_textarea($image_caption); ?></textarea>
+                    </p>
+
+                    <button type="button" class="button smvk-remove-gallery-image">
+                        Remove image
+                    </button>
+                </div>
+            </div>
+
+        <?php endforeach; ?>
+
+    </div>
+
+    <p class="description">
+        All images in this collection will use the category selected above.
+        Each image can have its own title and caption.
+    </p>
+
+    <?php
+}
+
+
+/**
+ * Load WordPress media uploader on the collection editor.
+ */
+function smvk_gallery_admin_scripts($hook) {
+    $screen = get_current_screen();
+
+    if (
+        !$screen ||
+        $screen->post_type !== 'gallery_collection' ||
+        !in_array($hook, array('post.php', 'post-new.php'), true)
+    ) {
+        return;
+    }
+
+    wp_enqueue_media();
+    wp_enqueue_script('jquery');
+
+    $script = <<<'JS'
+jQuery(function($) {
+    let frame;
+
+    function addGalleryRow(image) {
+        const id = String(image.id);
+
+        if ($('#smvk_gallery_image_list .smvk-gallery-row[data-id="' + id + '"]').length) {
+            return;
+        }
+
+        const title = image.title || '';
+        const thumb = image.sizes && image.sizes.thumbnail
+            ? image.sizes.thumbnail.url
+            : image.url;
+
+        const row = $('<div>', {
+            class: 'smvk-gallery-row',
+            'data-id': id
+        }).css({
+            display: 'flex',
+            gap: '15px',
+            padding: '15px',
+            marginBottom: '12px',
+            border: '1px solid #ddd',
+            background: '#fff'
+        });
+
+        const preview = $('<div>').css({
+            width: '120px',
+            flexShrink: 0
+        });
+
+        $('<img>', {
+            src: thumb,
+            alt: ''
+        }).css({
+            width: '100%',
+            height: 'auto'
+        }).appendTo(preview);
+
+        $('<input>', {
+            type: 'hidden',
+            name: 'smvk_gallery_images[' + id + '][id]',
+            value: id
+        }).appendTo(preview);
+
+        const fields = $('<div>').css({flex: 1});
+
+        $('<label>').text('Image title').appendTo(fields);
+
+        $('<input>', {
+            type: 'text',
+            class: 'widefat',
+            name: 'smvk_gallery_images[' + id + '][title]',
+            value: title,
+            required: true
+        }).css({marginBottom: '12px'}).appendTo(fields);
+
+        $('<label>').text('Image caption').appendTo(fields);
+
+        $('<textarea>', {
+            class: 'widefat',
+            rows: 2,
+            name: 'smvk_gallery_images[' + id + '][caption]'
+        }).appendTo(fields);
+
+        $('<button>', {
+            type: 'button',
+            class: 'button smvk-remove-gallery-image',
+            text: 'Remove image'
+        }).css({marginTop: '10px'}).appendTo(fields);
+
+        row.append(preview, fields);
+        $('#smvk_gallery_image_list').append(row);
+    }
+
+    $('#smvk_add_gallery_images').on('click', function(e) {
+        e.preventDefault();
+
+        if (frame) {
+            frame.open();
+            return;
+        }
+
+        frame = wp.media({
+            title: 'Select gallery images',
+            button: { text: 'Add selected images' },
+            library: { type: 'image' },
+            multiple: true
+        });
+
+        frame.on('select', function() {
+            frame.state().get('selection').each(function(attachment) {
+                addGalleryRow(attachment.toJSON());
+            });
+        });
+
+        frame.open();
+    });
+
+    $('#smvk_gallery_image_list').on(
+        'click',
+        '.smvk-remove-gallery-image',
+        function() {
+            $(this).closest('.smvk-gallery-row').remove();
+        }
+    );
+});
+JS;
+
+    wp_add_inline_script('jquery', $script);
+}
+add_action('admin_enqueue_scripts', 'smvk_gallery_admin_scripts');
+
+
+/**
+ * Save category, image IDs, titles and captions.
+ */
+function smvk_save_gallery_collection($post_id) {
+    if (
+        !isset($_POST['smvk_gallery_nonce']) ||
+        !wp_verify_nonce(
+            sanitize_text_field(
+                wp_unslash($_POST['smvk_gallery_nonce'])
+            ),
+            'smvk_save_gallery_collection'
+        )
+    ) {
+        return;
+    }
+
+    if (
+        (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) ||
+        wp_is_post_revision($post_id)
+    ) {
+        return;
+    }
+
+    if (!current_user_can('edit_post', $post_id)) {
+        return;
+    }
+
+    $allowed_categories = array(
+        'events',
+        'sports',
+        'culture',
+        'classroom',
+        'campus',
+    );
+
+    $category = isset($_POST['smvk_gallery_category'])
+        ? sanitize_key(wp_unslash($_POST['smvk_gallery_category']))
+        : '';
+
+    if (in_array($category, $allowed_categories, true)) {
+        update_post_meta(
+            $post_id,
+            '_smvk_gallery_category',
+            $category
+        );
+    } else {
+        delete_post_meta($post_id, '_smvk_gallery_category');
+    }
+
+    $submitted = isset($_POST['smvk_gallery_images'])
+        && is_array($_POST['smvk_gallery_images'])
+        ? wp_unslash($_POST['smvk_gallery_images'])
+        : array();
+
+    $clean_images = array();
+
+    foreach ($submitted as $item) {
+        if (!is_array($item)) {
+            continue;
+        }
+
+        $image_id = absint($item['id'] ?? 0);
+
+        if (
+            !$image_id ||
+            !wp_attachment_is_image($image_id) ||
+            !current_user_can('edit_post', $image_id)
+        ) {
+            continue;
+        }
+
+        $title = sanitize_text_field($item['title'] ?? '');
+
+        if ($title === '') {
+            continue;
+        }
+
+        $clean_images[] = array(
+            'id'      => $image_id,
+            'title'   => $title,
+            'caption' => sanitize_textarea_field(
+                $item['caption'] ?? ''
+            ),
+        );
+    }
+
+    update_post_meta(
+        $post_id,
+        '_smvk_gallery_images',
+        $clean_images
+    );
+}
+add_action(
+    'save_post_gallery_collection',
+    'smvk_save_gallery_collection'
+);

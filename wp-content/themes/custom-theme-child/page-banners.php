@@ -1478,7 +1478,202 @@ switch ($page_slug) {
     </section>
         <?php 
         break;
-       
+
+
+    case 'gallery':
+        ?>
+        <!-- HERO -->
+    <section class="fac-hero">
+        <div class="container">
+            <div class="fac-hero-inner">
+
+                <div class="fac-hero-text">
+                    <div class="fac-crumb">
+                        <!-- <a href="index.html">Home</a>
+                        <i class="bi bi-chevron-right"></i>
+                        <span class="current">Gallery</span> -->
+                        <?php 
+                            if ( function_exists('yoast_breadcrumb') ) {
+                            yoast_breadcrumb( '<a id="breadcrumbs">','</a>' );
+                        }
+                        ?>
+                    </div>
+
+                    <h1 class="fac-hero-title">
+                        School<br>
+                        <em>Gallery</em>
+                    </h1>
+
+                    <p class="fac-hero-desc">
+                        A visual journey through the vibrant life of our school —
+                        capturing moments of learning, celebration, sports,
+                        and the everyday joy of our students and staff.
+                    </p>
+
+                    <div class="fac-hero-facts">
+                        <span><i class="bi bi-camera"></i> Captured Moments</span>
+                        <span><i class="bi bi-images"></i> Photo Collections</span>
+                        <span><i class="bi bi-heart"></i> School Memories</span>
+                    </div>
+                </div>
+
+                <div class="fac-hero-visual">
+                    <div class="gal-hero-wrap">
+
+                        <div class="gal-ring-1"></div>
+                        <div class="gal-dot"></div>
+                        <div class="gal-sparkle"><i class="bi bi-stars"></i></div>
+
+                        <div class="gal-hero-frame">
+                            <figure>
+                                <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/media/image10.png"
+                                     alt="School moment at Shree Mahalingeshwara Vidyanikethana"
+                                     title="School Life and Student Memories">
+                                <figcaption class="cr-only">
+                                    Vibrant moments of academic, cultural, and extracurricular life captured at Shree Mahalingeshwara Vidyanikethana Kunjathur.
+                                </figcaption>
+                            </figure>
+                        </div>
+
+                        <div class="gal-ring-2"></div>
+
+                        <div class="gal-badge">
+                            <div class="gal-badge-icon"><i class="bi bi-camera-fill"></i></div>
+                            <div class="gal-badge-text">
+                                <small>Explore</small>
+                                <strong>Photo Memories</strong>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+        <?php
+        break;
+    
+    case 'contact-us':
+        ?>
+        <!-- =========================================================
+         HERO
+    ========================================================= -->
+    <section class="fac-hero">
+        <div class="container">
+            <div class="fac-hero-inner">
+
+                <div class="fac-hero-text">
+                    <div class="fac-crumb">
+                        <!-- <a href="index.html">Home</a>
+                        <i class="bi bi-chevron-right"></i>
+                        <span class="current">Contact Us</span> -->
+                        <?php 
+                            if ( function_exists('yoast_breadcrumb') ) {
+                            yoast_breadcrumb( '<a id="breadcrumbs">','</a>' );
+                        }
+                        ?>
+                    </div>
+
+                    <h1 class="fac-hero-title">
+                        Get In<br>
+                        <em>Touch</em>
+                    </h1>
+
+                    <p class="fac-hero-desc">
+                        We would love to hear from you. Reach out to us for
+                        admissions, general enquiries, or to plan a visit to
+                        our campus — our team is always happy to help.
+                    </p>
+
+                    <div class="fac-hero-facts">
+                        <span><i class="bi bi-telephone"></i> Quick Response</span>
+                        <span><i class="bi bi-chat-dots"></i> Friendly Support</span>
+                        <span><i class="bi bi-geo-alt"></i> Campus Visits</span>
+                    </div>
+                </div>
+
+                <div class="fac-hero-visual">
+                    <div class="ct-hero-wrap">
+
+                        <div class="ct-ring-blue"></div>
+
+                        <div class="ct-card">
+
+                            <div class="ct-card-head">
+                                <div class="ct-card-icon">
+                                    <i class="bi bi-chat-dots-fill"></i>
+                                </div>
+                                <div class="ct-card-head-text">
+                                    <span>Reach Us</span>
+                                    <strong>Contact Details</strong>
+                                </div>
+                            </div>
+
+                            <div class="ct-card-body">
+
+                                <div class="ct-line">
+                                    <div class="ct-line-icon"><i class="bi bi-telephone-fill"></i></div>
+                                    <div class="ct-line-text">
+                                        <strong>04998 278940</strong>
+                                        <small>Mob: 8921400582</small>
+                                    </div>
+                                </div>
+
+                                <div class="ct-line">
+                                    <div class="ct-line-icon"><i class="bi bi-envelope-fill"></i></div>
+                                    <div class="ct-line-text">
+                                        <strong>smvkunjathur@gmail.com</strong>
+                                        <small>We reply within 24 hours</small>
+                                    </div>
+                                </div>
+
+                                <div class="ct-line">
+                                    <div class="ct-line-icon"><i class="bi bi-geo-alt-fill"></i></div>
+                                    <div class="ct-line-text">
+                                        <strong>Kunjathur, Manjeshwar</strong>
+                                        <small>Shree Mahalingeshwara Temple Campus – 671323</small>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="ct-card-foot">
+                                <span class="ct-card-foot-label">
+                                    <i class="bi bi-clock-fill"></i>
+                                    Mon – Sat
+                                </span>
+                                <div class="ct-card-foot-dots">
+                                    <span></span><span></span><span></span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="ct-float ct-float-1">
+                            <div class="ct-float-icon"><i class="bi bi-telephone-outbound-fill"></i></div>
+                            <div class="ct-float-text">
+                                <small>Call</small>
+                                <strong>Anytime</strong>
+                            </div>
+                        </div>
+
+                        <div class="ct-float ct-float-2">
+                            <div class="ct-float-icon"><i class="bi bi-send-fill"></i></div>
+                            <div class="ct-float-text">
+                                <small>Send</small>
+                                <strong>A Message</strong>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+        <?php
+        break;
 
     default:
         ?>
