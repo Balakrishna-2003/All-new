@@ -1675,6 +1675,68 @@ switch ($page_slug) {
         <?php
         break;
 
+    case 'staff-activities':
+        ?>
+        <!-- HERO -->
+    <section class="fac-hero">
+        <div class="container">
+            <div class="fac-hero-inner">
+
+                <div class="fac-hero-text">
+                    <div class="fac-crumb">
+                        <!-- <a href="index.html">Home</a>
+                        <i class="bi bi-chevron-right"></i>
+                        <a href="#">Faculty &amp; Staff</a>
+                        <i class="bi bi-chevron-right"></i>
+                        <span class="current">Staff Activities</span> -->
+                        <?php 
+                            if ( function_exists('yoast_breadcrumb') ) {
+                            yoast_breadcrumb( '<a id="breadcrumbs">','</a>' );
+                        }
+                        ?>
+                    </div>
+
+                    <h1 class="fac-hero-title">
+                        Staff<br>
+                        <em>Activities</em>
+                    </h1>
+
+                    <p class="fac-hero-desc">
+                        Our staff regularly engage in professional development,
+                        team-building programmes, and community initiatives that
+                        strengthen their skills and enrich the learning
+                        environment for every student.
+                    </p>
+
+                    <div class="fac-hero-facts">
+                        <span><i class="bi bi-people"></i> Team Building</span>
+                        <span><i class="bi bi-lightbulb"></i> Professional Growth</span>
+                        <span><i class="bi bi-calendar-event"></i> Community Events</span>
+                    </div>
+                </div>
+
+                <div class="fac-hero-visual">
+                    <div class="fac-visual">
+                        <figure>
+                            <img
+                                src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/media/image232.png"
+                                alt="Staff Activities at Shree Mahalingeshwara Vidyanikethana"
+                                title="Faculty & Staff Activities at Shree Mahalingeshwara Vidyanikethana"
+                                class="fac-hero-image"
+                            >
+                            <figcaption class="cr-only">
+                                Dedicated faculty and staff members at Shree Mahalingeshwara Vidyanikethana engaged in collaborative educational initiatives and community gatherings.
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+        <?php
+        break;
+
     default:
         ?>
         <!-- DEFAULT BANNER DESIGN -->

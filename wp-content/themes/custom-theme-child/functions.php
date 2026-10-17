@@ -1108,6 +1108,7 @@ function smvk_gallery_collection_fields($post) {
         'culture'   => 'Cultural',
         'classroom' => 'Classroom',
         'campus'    => 'Campus',
+        'staff-gallery' => 'Staff Gallery'
     );
 
     wp_nonce_field(
@@ -1392,6 +1393,7 @@ function smvk_save_gallery_collection($post_id) {
         'culture',
         'classroom',
         'campus',
+        'staff-gallery'
     );
 
     $category = isset($_POST['smvk_gallery_category'])
